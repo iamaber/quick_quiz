@@ -1,7 +1,8 @@
 const router = require("express").Router();
-const Exam = require("../models/examModel");
+const Exam = require('../models/examModel');
 const authMiddleware = require("../middlewares/authMiddleware");
 const Question = require("../models/questionModel");
+
 
 //add exam
 
@@ -14,7 +15,7 @@ router.post("/add", authMiddleware, async (req, res) => {
         .status(200)
         .send({ messeage: "Exam already exists", success: false });
     }
-    req.body.questions = [];
+    req.body.questions = []
     const newExam = new Exam(req.body);
     await newExam.save();
     res.send({
@@ -59,7 +60,7 @@ router.post("/get-exam-by-id", authMiddleware, async (req, res) => {
     });
   } catch (error) {
     res.status(500).send({
-      message: error.message,
+      message: error.message, 
       data: error,
       success: false,
     });
@@ -70,7 +71,7 @@ router.post("/get-exam-by-id", authMiddleware, async (req, res) => {
 
 router.post("/edit-exam-by-id", authMiddleware, async (req, res) => {
   try {
-    const exam = await Exam.findById(req.body.examId);
+    await Exam.findByIdAndUpdate(req.body.examId, req.body);
     res.send({
       message: "Exams edited successfully",
       success: true,
@@ -88,7 +89,7 @@ router.post("/edit-exam-by-id", authMiddleware, async (req, res) => {
 
 router.post("/delete-exam-by-id", authMiddleware, async (req, res) => {
   try {
-    const exam = await Exam.findById(req.body.examId);
+    await Exam.findByIdAndDelete(req.body.examId);
     res.send({
       message: "Exams deleted successfully",
       success: true,
@@ -111,7 +112,7 @@ router.post("/add-question-to-exam", authMiddleware, async (req, res) => {
     const question = await newQuestion.save();
 
     //add question to exam
-    const exam = await Exam.findById(req.body.examId);
+    const exam = await Exam.findById(req.body.exam);
     exam.questions.push(question._id);
     await exam.save();
     res.send({
@@ -119,7 +120,7 @@ router.post("/add-question-to-exam", authMiddleware, async (req, res) => {
       success: true,
     });
   } catch (error) {
-    res.status(500).send({
+    res.status(500).send({  
       message: error.message,
       data: error,
       success: false,

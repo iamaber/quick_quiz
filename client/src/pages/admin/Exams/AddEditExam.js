@@ -1,26 +1,28 @@
 import { Col, Divider, Form, Row, Select, Table, message } from "antd";
 import React, { useEffect } from "react";
-import { addExam, getExamById, editExamById } from "../../../apicalls/exams";
+import {
+  addExam,
+  getExamById,
+  editExamById,
+  
+  deleteQuestionById,
+} from "../../../apicalls/exams";
 import PageTitle from "../../../components/PageTitle";
+
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
-import { Tabs } from "antd";
-import TabPane from "antd/es/tabs/TabPane";
 import AddEditQuestion from "./AddEditQuestion";
-import { deleteQuestionById } from "../../../apicalls/exams";
+import { Tabs } from "antd";
+const { TabPane } = Tabs;
 
 function AddEditExam() {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const [examData, setExamData] = React.useState(null);
-  const [showAddEditQuestionModal, setshowAddEditQuestionModal] =
+  const [showAddEditQuestionModal, setShowAddEditQuestionModal] =
     React.useState(false);
   const [selectedQuestion, setSelectedQuestion] = React.useState(null);
   const params = useParams();
   const onFinish = async (values) => {
     try {
-      dispatch(ShowLoading());
       let response;
 
       if (params.id) {
@@ -38,27 +40,23 @@ function AddEditExam() {
       } else {
         message.error(response.message);
       }
-      dispatch(HideLoading());
     } catch (error) {
-      dispatch(HideLoading());
       message.error(error.message);
     }
   };
 
   const getExamData = async () => {
     try {
-      dispatch(ShowLoading());
       const response = await getExamById({
         examId: params.id,
       });
-      dispatch(HideLoading());
+
       if (response.success) {
         setExamData(response.data);
       } else {
         message.error(response.message);
       }
     } catch (error) {
-      dispatch(HideLoading());
       message.error(error.message);
     }
   };
@@ -70,19 +68,17 @@ function AddEditExam() {
 
   const deleteQuestion = async (questionId) => {
     try {
-      dispatch(ShowLoading());
       const response = await deleteQuestionById({
         questionId,
         examId: params.id,
       });
-      dispatch(HideLoading());
+
       if (response.success) {
         getExamData(response.data);
       } else {
         message.error(response.message);
       }
     } catch (error) {
-      dispatch(HideLoading());
       message.error(error.message);
     }
   };
@@ -118,23 +114,23 @@ function AddEditExam() {
     {
       title: "Action",
       dataIndex: "action",
-      render: (text, record) => {
+      render: (text, record) => (
         <div className="flex gap-2">
           <i
-            classname="ri-pencil-line"
+            className="ri-pencil-line"
             onClick={() => {
               setSelectedQuestion(record);
-              setshowAddEditQuestionModal(true);
+              setShowAddEditQuestionModal(true);
             }}
           ></i>
           <i
-            classname="ri-delete-bin-line"
+            className="ri-delete-bin-line"
             onClick={() => {
               deleteQuestion(record._id);
             }}
           ></i>
-        </div>;
-      },
+        </div>
+      ),
     },
   ];
   return (
@@ -199,7 +195,7 @@ function AddEditExam() {
                   <button
                     className="primary-outlined-btn"
                     type="button"
-                    onClick={() => setshowAddEditQuestionModal(true)}
+                    onClick={() => setShowAddEditQuestionModal(true)}
                   >
                     Add Question
                   </button>
@@ -216,7 +212,8 @@ function AddEditExam() {
 
       {showAddEditQuestionModal && (
         <AddEditQuestion
-          setshowAddEditQuestionModal={showAddEditQuestionModal}
+          setShowAddEditQuestionModal={setShowAddEditQuestionModal}
+          showAddEditQuestionModal={showAddEditQuestionModal}
           examId={params.id}
           refreshData={getExamData}
           selectedQuestion={selectedQuestion}

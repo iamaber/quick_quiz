@@ -2,16 +2,15 @@ import { Form, message } from "antd";
 import React from "react";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../../apicalls/users";
-import { useDispatch } from "react-redux";
-import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
+
 
 function Login() {
-  const dispatch = useDispatch();
+  
   const onFinish = async (values) => {
     try {
-      dispatch(ShowLoading());
+      
       const response = await loginUser(values);
-      dispatch(HideLoading());
+      
       if (response.success) {
         message.success(response.message);
         localStorage.setItem("token", response.data);
@@ -20,7 +19,7 @@ function Login() {
         message.error(response.message);
       }
     } catch (error) {
-      dispatch(HideLoading());
+      
       message.error(error.message);
     }
   };

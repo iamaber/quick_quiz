@@ -1,22 +1,21 @@
 import { Modal, Form, message } from "antd";
 import React from "react";
-import { addQuestionToExam } from "../../../apicalls/exams";
-import { useDispatch } from "react-redux";
-import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
+import { addQuestionToExam, editQuestionById } from "../../../apicalls/exams";
 
-function AddEditQuestion({
+
+function AddEditQuestion({ 
   showAddEditQuestionModal,
-  setshowAddEditQuestionModal,
+  setShowAddEditQuestionModal,
   refreshData,
   examId,
   selectedQuestion,
   setSelectedQuestion,
-  editQuestionById,
+  
 }) {
-  const dispatch = useDispatch();
+  
   const onFinish = async (values) => {
     try {
-      dispatch(ShowLoading());
+      
       const requiredPayload = {
         name: values.name,
         correctOption: values.correctOption,
@@ -24,7 +23,7 @@ function AddEditQuestion({
           A: values.A,
           B: values.B,
           C: values.C,
-          D: values.C,
+          D: values.D,
         },
         exam: examId,
       };
@@ -41,14 +40,14 @@ function AddEditQuestion({
       if (response.success) {
         message.success(response.message);
         refreshData();
-        setshowAddEditQuestionModal(false);
+        setShowAddEditQuestionModal(false);
       } else {
         message.error(response.message);
       }
       setSelectedQuestion(null);
-      dispatch(HideLoading());
+      
     } catch (error) {
-      dispatch(HideLoading());
+      
       message.error(error.message);
     }
   };
@@ -58,7 +57,7 @@ function AddEditQuestion({
       open={showAddEditQuestionModal}
       footer={false}
       onCancel={() => {
-        setshowAddEditQuestionModal(false);
+        setShowAddEditQuestionModal(false);
         setSelectedQuestion(null);
       }}
     >
@@ -95,14 +94,14 @@ function AddEditQuestion({
           </Form.Item>
           <Form.Item name="D" label="Option D">
             <input type="text" />
-          </Form.Item>
+          </Form.Item> 
         </div>
 
         <div className="flex justify-end mt-2 gap-3">
           <button
             className="primary-outlined-btn"
             type="button"
-            onClick={() => setshowAddEditQuestionModal(false)}
+            onClick={() => setShowAddEditQuestionModal(false)}
           >
             Cancel
           </button>

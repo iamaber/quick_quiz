@@ -11,14 +11,10 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/common/Home";
 import Exams from "./pages/admin/Exams";
 import AddEditExam from "./pages/admin/Exams/AddEditExam";
-import Loader from "./components/Loader";
-import { useSelector } from "react-redux";
 
 function App() {
-  const { loading } = useSelector(state => state.loader)
   return (
     <>
-      {loading && <Loader />}
       <BrowserRouter>
         <Routes>
           {/* Common Routes */}

@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import PageTitle from "../../../components/PageTitle";
-import { useDispatch } from "react-redux";
-import { HideLoading, ShowLoading } from "../../../redux/loaderSlice";
 import { message, Table } from "antd";
 import { deleteExamById, getAllExams } from "../../../apicalls/exams";
+import { useDispatch } from "react-redux";
 
 function Exams() {
   const navigate = useNavigate();
@@ -37,11 +36,11 @@ function Exams() {
       render: (text, record) => (
         <div className="flex gap-2">
           <i
-            classname="ri-pencil-line"
+            className="ri-pencil-line"
             onClick={() => navigate(`/admin/exams/edit/${record._id}`)}
           ></i>
           <i
-            classname="ri-delete-bin-line"
+            className="ri-delete-bin-line"
             onClick={() => deleteExam(record._id)}
           ></i>
         </div>
@@ -51,27 +50,25 @@ function Exams() {
 
   const getExamsData = async () => {
     try {
-      dispatch(ShowLoading());
       const response = await getAllExams();
-      dispatch(HideLoading());
+
       if (response.success) {
         setExams(response.data);
       } else {
         message.error(response.message);
       }
     } catch (error) {
-      dispatch(HideLoading());
       message.error(error.message);
     }
   };
 
   const deleteExam = async (examId) => {
     try {
-      dispatch(ShowLoading());
+      
       const response = await deleteExamById({
         examId,
       });
-      dispatch(HideLoading());
+
       if (response.success) {
         message.success(response.message);
         getExamsData();
@@ -79,7 +76,6 @@ function Exams() {
         message.error(response.message);
       }
     } catch (error) {
-      dispatch(HideLoading());
       message.error(error.message);
     }
   };
@@ -101,8 +97,8 @@ function Exams() {
           Add Exam
         </button>
       </div>
-      <div classname="divider"></div>
-      <Table columns={columns} dataSource={[exams]} />
+      <div className="divider"></div>
+      <Table columns={columns} dataSource={exams} />
     </div>
   );
 }
