@@ -4,6 +4,7 @@ import { getUserInfo } from "../apicalls/users";
 import { useDispatch, useSelector } from "react-redux";
 import { SetUser } from "../redux/usersSlice.js";
 import { useNavigate } from "react-router-dom";
+import { HideLoading, ShowLoading } from "../redux/loaderSlice";
 
 function ProtectedRoute({ children }) {
   const { user } = useSelector((state) => state.users);
@@ -80,7 +81,9 @@ function ProtectedRoute({ children }) {
 
   const getUserData = async () => {
     try {
+      dispatch(ShowLoading())
       const response = await getUserInfo();
+      dispatch(HideLoading())
       if (response.success) {
         dispatch(SetUser(response.data));
         if (response.data.isAdmin) {
@@ -93,7 +96,7 @@ function ProtectedRoute({ children }) {
       }
     } catch (error) {
       navigate("/login");
-
+      dispatch(HideLoading())
       message.error(error.message);
     }
   };

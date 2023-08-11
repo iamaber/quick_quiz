@@ -1,7 +1,7 @@
 {
   "name": "quick_quiz",
   "version": "1.0.0",
-  "description": "",
+  "description": "An online application for all users. Users may create and join quizzes by just logging in. Where a teacher will design a quiz and have control over its shareability and access is quite original.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
