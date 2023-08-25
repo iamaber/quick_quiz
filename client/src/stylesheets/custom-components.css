@@ -1,0 +1,48 @@
+.card {
+  box-shadow: 0 0 1px gray;
+}
+
+.card-lg {
+  box-shadow: 0 0 2px rgb(126, 124, 124);
+}
+
+.divider {
+  border-bottom: 1px solid rgb(182, 182, 182);
+  margin: 10px 0;
+}
+
+.option {
+  box-shadow: rgba(0, 0, 0, 0.638) 0px 0px 1.5px;
+  padding: 10px;
+  border-radius: 2px;
+}
+
+.selected-option {
+  box-shadow: rgba(0, 0, 0, 0.638) 0px 0px 1px;
+  padding: 10px;
+  border-radius: 2px;
+  border: 2px solid var(--primary);
+}
+
+.result {
+  box-shadow: rgba(0, 0, 0, 0.638) 0px 0px 2px;
+  padding: 30px;
+  color: white !important;
+  border-radius: 5px;
+}
+
+.lottie-animation {
+  height: 300px;
+}
+
+.timer {
+  background-color: rgb(136, 22, 22);
+  color: white !important;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 80px;
+  border-radius: 50%;
+}

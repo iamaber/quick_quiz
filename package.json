@@ -1,0 +1,19 @@
+{
+  "name": "quick_quiz",
+  "version": "1.0.0",
+  "description": "An online application for all users. Users may create and join quizzes by just logging in. Where a teacher will design a quiz and have control over its shareability and access is quite original.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.1",
+    "mongoose": "^7.4.2",
+    "nodemon": "^3.0.1"
+  }
+}
