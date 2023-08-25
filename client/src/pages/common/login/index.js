@@ -25,7 +25,7 @@ function Login() {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen w-screen bg-white">
+    <div className="flex justify-center items-center h-screen w-screen bg-primary">
       <div className="card w-400 p-3 bg-white">
         <div className="flex flex-col">
           <div className="flex">

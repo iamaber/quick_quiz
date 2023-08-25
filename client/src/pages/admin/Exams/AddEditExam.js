@@ -4,7 +4,7 @@ import {
   addExam,
   getExamById,
   editExamById,
-  
+
   deleteQuestionById,
 } from "../../../apicalls/exams";
 import PageTitle from "../../../components/PageTitle";
@@ -16,6 +16,7 @@ const { TabPane } = Tabs;
 
 function AddEditExam() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [examData, setExamData] = React.useState(null);
   const [showAddEditQuestionModal, setShowAddEditQuestionModal] =
     React.useState(false);
@@ -106,9 +107,8 @@ function AddEditExam() {
       title: "Correct Option",
       dataIndex: "correctOption",
       render: (text, record) => {
-        return ` ${record.correctOption} : ${
-          record.options[record.correctOption]
-        }`;
+        return ` ${record.correctOption} : ${record.options[record.correctOption]
+          }`;
       },
     },
     {

@@ -3,17 +3,35 @@
   "version": "1.0.0",
   "description": "An online application for all users. Users may create and join quizzes by just logging in. Where a teacher will design a quiz and have control over its shareability and access is quite original.",
   "main": "index.js",
+  "engines": {
+    "node" : "18.6.1",
+    "npm": "6.13.4"
+
+
+  },
   "scripts": {
+    "start": "nodemon server/server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run client\"npm start\"",
+    "heroku-postbuild": "NPM_CONGIG_PRODUCTION-false npm install --prefix client && npm run build --prefix client"
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@reduxjs/toolkit": "^1.9.5",
+    "antd": "^5.8.4",
+    "axios": "^1.4.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.1",
-    "mongoose": "^7.4.2",
-    "nodemon": "^3.0.1"
+    "moment": "^2.29.4",
+    "mongoose": "^7.4.4",
+    "nodemon": "^3.0.1",
+    "react-redux": "^8.1.2",
+    "react-router-dom": "^6.15.0",
+    "redux": "^4.2.1",
+    "start": "^5.1.0"
   }
 }

@@ -11,6 +11,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/common/Home";
 import Exams from "./pages/admin/Exams";
 import AddEditExam from "./pages/admin/Exams/AddEditExam";
+import UserReports from "./pages/user/UserReorts";
+import AdminReports from "./pages/admin/AdminReports";
 
 function App() {
   return (
@@ -30,6 +32,28 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          {/* User Routes */}
+          <Route
+            path="/user/reports"
+            element={
+              <ProtectedRoute>
+                <UserReports />
+              </ProtectedRoute>
+            }
+          />
+          />
+
+{/* User Routes */}
+<Route
+  path="/user/write-exam/:id"
+  element={
+    <ProtectedRoute>
+      <writeExam />
+    </ProtectedRoute>
+  }
+/>
+
 
           {/* Admin Routes */}
           <Route
@@ -54,6 +78,14 @@ function App() {
             element={
               <ProtectedRoute>
                 <AddEditExam />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/reports"
+            element={
+              <ProtectedRoute>
+                <AdminReports />
               </ProtectedRoute>
             }
           />

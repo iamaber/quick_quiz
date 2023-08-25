@@ -16,15 +16,15 @@ function ProtectedRoute({ children }) {
   const userMenu = [
     {
       title: "Home",
-      paths: ["/"],
+      paths: ["/", "/user/write-exam"],
       icon: <i className="ri-home-line"></i>,
       onClick: () => navigate("/"),
     },
     {
       title: "Reports",
-      paths: ["/reports"],
+      paths: ["/user/reports"],
       icon: <i className="ri-bar-chart-line"></i>,
-      onClick: () => navigate("/reports"),
+      onClick: () => navigate("/user/reports"),
     },
     {
       title: "Profile",
@@ -168,8 +168,13 @@ function ProtectedRoute({ children }) {
             )}
             <h1 className="text-2xl text-white">QUICK QUIZ</h1>
             <div>
+              <div>
               <div className="flex gap-1 items-center">
                 <h1 className="text-md text-white">{user?.name}</h1>
+              </div>
+              <span>
+                Role : {user?.isAdmin ? "Admin" : "User"}
+              </span>
               </div>
               <span>Role : {user?.isAdmin ? "Admin" : "User"}</span>
             </div>
