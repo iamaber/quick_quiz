@@ -13,13 +13,13 @@ export const addReport = async (playload) => {
 //get all reports
 export const getAllReports = async (filters) => {
     try {
-        const response = await axiosInstance.post("/api/reports/add-reports", filters;
-        return response.data;
+      const response = await axiosInstance.post("/api/reports/add-reports", filters);
+      return response.data;
     } catch (error) {
-        return error.response.data;
+      return error.response.data;
     }
-
-}
+  };
+  
 //get all reports by user
 export const getAllReportsByUser = async () => {
     try {

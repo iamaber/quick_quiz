@@ -3,6 +3,8 @@ import PageTitle from"../../../components/PageTitle";
 import { Table} from "antd";
 import { getAllReports } from '../../../apicalls/reports';
 import moment from 'moment';
+import { message } from 'antd';
+
 
 
 
@@ -70,7 +72,8 @@ function AdminReports() {
 
     const getData= async(tempfilters) =>{
         try {
-            const reponse = await getAllReports(tempfilters);
+          const response = await getAllReports(tempfilters);
+
             if(response.success){
                 setReportData(response.data);
             }else{
@@ -81,7 +84,7 @@ function AdminReports() {
         }
     } ;
     useEffect(() => {
-        getData(filterss);
+        getData(filters);
 
     },[])
   return (
@@ -91,32 +94,40 @@ function AdminReports() {
       <div className="divider"></div>
       <div className="flex">
       <div className= "flex gap">
-        <input type="text" placeholder="Exam" />
-        value={filters.examName}
-        onChange= {(e) => setfilters({...filters,examName : e.target.value})}
+      <input type="text"
+  
+      placeholder="Exam"
+      value={filters.examName}
+      onChange={(e) => setfilters({ ...filters, examName: e.target.value })}
+      />
+
         <input type="text" placeholder="User" />
         value={filters.userName}
         onChange= {(e) => setfilters({...filters,userName : e.target.value})}
         
-        <button className = "primary-outlined-btn">
-          onClick() = [() => {
-            setfilters({
-              examName: "",
-              userName :"",
-            })
-               getData (
-                examName : "",
-                userName : "",
-               );
-          ]
-        >
-          Clear 
-        </button>
+        <button className="primary-outlined-btn"
+            
+         onClick={() => {
+           setfilters({
+           examName: "",
+           userName: "",
+        });
+        getData({
+          examName: "",
+          userName: "",
+        });
+     }}
+    >
+     Clear
+       </button>
+
 
 
         <button className = "primary-contained-btn">
-          onClick() = getData(filters)
+          onClick{() =>{
+          getData(filters)
           Search
+          }}
         </button>
         </div>
       </div>

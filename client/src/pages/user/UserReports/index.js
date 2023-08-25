@@ -56,14 +56,15 @@ function UserReports() {
 
     const getData= async() =>{
         try {
-            const reponse = await getAllReportsByUser();
+            const response = await getAllReportsByUser();
             if(response.success){
                 setReportData(response.data);
             }else{
                 message.error(response.message);
             }
         } catch (error) {
-            message.error(response.message);
+            message.error(error.message);
+
         }
     } ;
     useEffect(() => {
@@ -74,7 +75,8 @@ function UserReports() {
     <div>
       <PageTitle title = "Reports" />
       <div className="divider"></div>
-      <Table columns={columns} dataSource={reportsData} />
+      <Table columns={columns} dataSource={reportData} />
+
 
     </div>
   )

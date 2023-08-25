@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { message } from "antd";
 import { useDispatch } from "react-redux";
 import { getAllExams } from "../../../apicalls/exams";
-
+import React from 'react';
 import PageTitle from "../../../components/PageTitle";
 
 function Home() {
@@ -70,3 +70,4 @@ function Home() {
 
 
 export default Home;
+
