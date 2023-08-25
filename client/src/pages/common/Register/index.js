@@ -5,24 +5,21 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { registerUser } from "../../../apicalls/users";
 
-
 function Register() {
-  
   const navigate = useNavigate();
+  
   const onFinish = async (values) => {
     try {
-      
       const response = await registerUser(values);
       
       if (response.success) {
         message.success(response.message);
-        navigate("/login")
+        navigate("/login");
       } else {
         message.error(response.message);
       }
     } catch (error) {
-      
-      message.error(error.message);
+      message.error(error.response.data.message); // Assuming error object has a "response" property
     }
   };
 
@@ -31,7 +28,7 @@ function Register() {
       <div className="card w-400 p-3 bg-white">
         <div className="flex flex-col">
           <h1 className="text-2xl">
-            QUIKQUIZ - REGISTER<i class="ri-user-add-line"></i>
+            QUIKQUIZ - REGISTER<i className="ri-user-add-line"></i>
           </h1>
           <div className="divider"></div>
           <Form layout="vertical" className="mt-2" onFinish={onFinish}>
@@ -39,7 +36,7 @@ function Register() {
               <input type="text" />
             </Form.Item>
             <Form.Item name="email" label="Email">
-              <input type="text" />
+              <input type="email" />
             </Form.Item>
             <Form.Item name="password" label="Password">
               <input type="password" />

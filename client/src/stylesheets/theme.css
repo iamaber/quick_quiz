@@ -9,20 +9,23 @@
     --dark: #212121;
   }
   
-  .bg-primary{
-      background-color: var(--primary) !important;
-  }
-  .bg-white{
-      background-color: #fff !important;
-  }
-  .text-white{
-      color: white !important;
+  .bg-primary {
+    background-color: var(--primary) !important;
   }
   
-  .bg-success{
-      background-color: var(--success);
+  .bg-white {
+    background-color: #fff !important;
   }
   
-  .bg-error{
-      background-color: var(--warning);
-  } 
+  .text-white {
+    color: white !important;
+  }
+  
+  .bg-success {
+    background-color: var(--success);
+  }
+  
+  .bg-danger { /* Renamed from bg-error to bg-danger */
+    background-color: var(--warning);
+  }
+  

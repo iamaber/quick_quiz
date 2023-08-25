@@ -1,40 +1,33 @@
-import React from 'react'
+import React from 'react';
 import { useNavigate } from "react-router-dom";
 
-const Instructions = (examData, setView,startTimer) => {
+const Instructions = ({ examData, setView, startTimer }) => {
   const navigate = useNavigate();
+  
   return (
     <div className='flex flex-col items-center gap-5'>
+      <h1 className="text-2xl underline text-center">Instructions</h1>
       <ul className="flex flex-col gap-1">
-      <h1 className="tect-2xl-underline text-center">Instructions</h1>
         <li>Exam must be completed in {examData.duration} seconds.</li>
-        <li>exam will be submitted automatically after {examData.duration} seconds.</li>
-        <li>Once submitted you cannot change your answers.</li>
+        <li>Exam will be submitted automatically after {examData.duration} seconds.</li>
+        <li>Once submitted, you cannot change your answers.</li>
         <li>Do not refresh the page.</li>
-        <li>You can use the <span className="font-bold">{examData.totalMarks}</span>.</li>
-        <li>Passing marks of the exam is <span className="font-bold">{examData.passingMarks}</span>.</li>
+        <li>You can score up to <span className="font-bold">{examData.totalMarks}</span> marks.</li>
+        <li>Passing marks for the exam is <span className="font-bold">{examData.passingMarks}</span>.</li>
       </ul>
-      <div className ="flex gap-2">
-        <button className="primary-outlined-btn">
-            onClick={() => navigate ('/')
-            
-            } 
-             Close
+      <div className="flex gap-2">
+        <button className="primary-outlined-btn" onClick={() => navigate('/')}>
+          Close
         </button>
-
-      <button className="primaryt-contained-btn"
-         onClick={() => {
+        <button className="primary-contained-btn" onClick={() => {
           startTimer();
-          setView("questions")}
-      
-        >
-        
-        Start Exam
+          setView("questions");
+        }}>
+          Start Exam
         </button>
-
       </div>
-       </div>
-  )
-}
+    </div>
+  );
+};
 
-export default Instructions
+export default Instructions;

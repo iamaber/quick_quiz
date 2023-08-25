@@ -1,48 +1,58 @@
-.text-2xl{
+.text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
-}
-.text-xl{
+  }
+  
+  .text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
-}
-.text-lg{
+  }
+  
+  .text-lg {
     font-size: 1.125rem;
     line-height: 1.5rem;
-}
-.text-md{
+  }
+  
+  .text-md {
     font-size: 1rem;
     line-height: 1.25rem;
-}
-.text-sm{
+  }
+  
+  .text-sm {
     font-size: 0.875rem;
     line-height: 1rem;
-}
-.text-xs{
+  }
+  
+  .text-xs {
     font-size: 0.75rem;
     line-height: 0.875rem;
-}
-
-h1{
-    margin-bottom: 0px !important;
-    padding-bottom: 0 !important;
-}
-.text-center{
+  }
+  
+  h1 {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .text-center {
     text-align: center;
-}
-a{
-    color: var(--primary) !important;
-
-}
-a:hover{
-    color: var(--primary) !important;
-    text-decoration: underline !important;
-}
-
-i{
-    font-size: 18px !important;
-    cursor: pointer !important;
-}
-.underline{
-    text-decoration: underline !important;
-}
+  }
+  
+  a {
+    color: var(--primary);
+    text-decoration: none; /* Removed !important for normal state */
+  }
+  
+  a:hover {
+    color: var(--primary);
+    text-decoration: underline;
+  }
+  
+  i {
+    font-size: 18px;
+    cursor: pointer;
+  }
+  
+  .underline {
+    text-decoration: underline;
+  }
+  
