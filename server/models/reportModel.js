@@ -1,22 +1,19 @@
 const mongoose = require('mongoose');
-const reportSchema = new mongooseSchema({
-    user : {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'users'
+const reportSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users'
     },
-    exam : {
+    exam: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'exams'
-        },
-    
-    result :{
+    },
+    result: {
         type: Object,
         required: true,
     }
-
-
 }, {
     timestamps: true,
 });
-const Report = mongoose.model("reports",reportSchema);
+const Report = mongoose.model("reports", reportSchema);
 module.exports = Report;

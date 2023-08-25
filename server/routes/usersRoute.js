@@ -3,24 +3,24 @@ const User = require("../models/userModel");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authMiddleware = require("../middlewares/authMiddleware");
-// user registration
 
+// User registration
 router.post("/register", async (req, res) => {
   try {
-    // check if user already exists
+    // Check if user already exists
     const userExists = await User.findOne({ email: req.body.email });
     if (userExists) {
       return res
-        .status(200)
+        .status(400)
         .send({ message: "User already exists", success: false });
     }
 
-    // hash password
+    // Hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
     req.body.password = hashedPassword;
 
-    // create new user
+    // Create new user
     const newUser = new User(req.body);
     await newUser.save();
     res.send({
@@ -36,25 +36,25 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// user login
+// User login
 router.post("/login", async (req, res) => {
   try {
-    // check if user exists
+    // Check if user exists
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
       return res
-        .status(200)
+        .status(400)
         .send({ message: "User does not exist", success: false });
     }
 
-    // check password
+    // Check password
     const validPassword = await bcrypt.compare(
       req.body.password,
       user.password
     );
     if (!validPassword) {
       return res
-        .status(200)
+        .status(400)
         .send({ message: "Invalid password", success: false });
     }
 
@@ -76,10 +76,15 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// get user info
+// Get user info
 router.post("/get-user-info", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.body.userId);
+    if (!user) {
+      return res
+        .status(404)
+        .send({ message: "User not found", success: false });
+    }
     res.send({
       message: "User info fetched successfully",
       success: true,
