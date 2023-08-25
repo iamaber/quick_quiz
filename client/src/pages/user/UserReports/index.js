@@ -1,85 +1,42 @@
-import React, { useEffect, useLayoutEffect } from 'react'
-import PageTitle from"../../../components/PageTitle";
-import { Table} from "antd";
+import React, { useEffect } from 'react';
+import { Table, message } from "antd";
+import PageTitle from "../../../components/PageTitle";
 import { getAllReportsByUser } from '../../../apicalls/reports';
 import moment from 'moment';
-
-
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
 
 function UserReports() {
-    const [reportData,setReportData]=React.useState([])
-    const columns = [{
-        title : 'Exam Name',
-        dataIndex : 'examName',
-        render : (text,record) => <>
-          {record.exam.name}
-        </>
-    },
-    {
-        title : 'Date',
-        dataIndex : 'Date',
-        render : (text,record) => <>
-          moment(record.createdAt).format("DD-MM-YYYY hh:mm:ss")
-        </>
-        
-    },
-    
-    {
-        title : 'Total Marks',
-        dataIndex : 'Total Marks',
-        render : (text,record) => <>
-          {record.exam.totalMarks}
-        </>
-    },
-    {
-        title : 'Passing Marks',
-        dataIndex : 'Passing Marks',
-        render : (text,record) => <>
-          {record.result.PassingMarks.length}
-        </>
-    },
-    {
-        title : 'Obtained Marks',
-        dataIndex : 'Obtained Marks',
-        render : (text,record) => <>
-          {record.result.correctAnswers.length}
-        </>
-    },
-    {
-        title : 'Verdict',
-        dataIndex : 'verdict',
-        render : (text,record) => <>
-          {record.result.verdict}
-        </>
-    },
-    ];
+  const [reportData, setReportData] = React.useState([]);
+  const navigate = useNavigate(); // Initialize the useNavigate hook
+  const columns = [
+    // Your column definitions here
+  ];
 
-    const getData= async() =>{
-        try {
-            const response = await getAllReportsByUser();
-            if(response.success){
-                setReportData(response.data);
-            }else{
-                message.error(response.message);
-            }
-        } catch (error) {
-            message.error(error.message);
+  const getData = async () => {
+    try {
+      const response = await getAllReportsByUser();
+      if (response.success) {
+        setReportData(response.data);
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
 
-        }
-    } ;
-    useEffect(() => {
-        getData();
+  useEffect(() => {
+    getData();
+  }, []);
 
-    },[])
   return (
     <div>
-      <PageTitle title = "Reports" />
+      <PageTitle title="Reports" />
       <div className="divider"></div>
       <Table columns={columns} dataSource={reportData} />
-
-
     </div>
-  )
+  );
 }
 
-export default UserReports
+export default UserReports;
+

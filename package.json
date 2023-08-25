@@ -3,17 +3,9 @@
   "version": "1.0.0",
   "description": "An online application for all users. Users may create and join quizzes by just logging in. Where a teacher will design a quiz and have control over its shareability and access is quite original.",
   "main": "index.js",
-  "engines": {
-    "node" : "18.6.1",
-    "npm": "6.13.4"
-
-
-  },
+  
   "scripts": {
-    "start": "nodemon server/server.js",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run client\"npm start\"",
-    "heroku-postbuild": "NPM_CONGIG_PRODUCTION-false npm install --prefix client && npm run build --prefix client"
+    
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

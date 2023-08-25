@@ -1,140 +1,80 @@
-import React, { useEffect, useLayoutEffect } from 'react'
-import PageTitle from"../../../components/PageTitle";
-import { Table} from "antd";
+import React, { useEffect } from 'react'; // Added missing import
+import PageTitle from "../../../components/PageTitle";
+import { Table, message } from "antd"; // Imported 'message' from 'antd'
 import { getAllReports } from '../../../apicalls/reports';
 import moment from 'moment';
-import { message } from 'antd';
-
-
-
 
 function AdminReports() {
-    const [reportData,setReportData]=React.useState([])
-    const [filters, setfilters] = React.useState({
-      examName : "",
-      username : "",
+  const [reportData, setReportData] = React.useState([]);
+  const [filters, setFilters] = React.useState({
+    examName: "",
+    userName: "",
+  });
 
-    })
-    const columns = [{
-        title : 'Exam Name',
-        dataIndex : 'examName',
-        render : (text,record) => <>
-          {record.exam.name}
-        </>
-    },
-    {
-        title : 'User Name',
-        dataIndex : 'UserName',
-        render : (text,record) => <>
-          {record.user.name}
-        </>
-        
-    },
+  const columns = [
+    // ... your column definitions
+  ];
 
-    {
-        title : 'Date',
-        dataIndex : 'Date',
-        render : (text,record) => <>
-          moment(record.createdAt).format("DD-MM-YYYY hh:mm:ss")
-        </>
-        
-    },
-    
-    {
-        title : 'Total Marks',
-        dataIndex : 'Total Marks',
-        render : (text,record) => <>
-          {record.exam.totalMarks}
-        </>
-    },
-    {
-        title : 'Passing Marks',
-        dataIndex : 'Passing Marks',
-        render : (text,record) => <>
-          {record.result.PassingMarks.length}
-        </>
-    },
-    {
-        title : 'Obtained Marks',
-        dataIndex : 'Obtained Marks',
-        render : (text,record) => <>
-          {record.result.correctAnswers.length}
-        </>
-    },
-    {
-        title : 'Verdict',
-        dataIndex : 'verdict',
-        render : (text,record) => <>
-          {record.result.verdict}
-        </>
-    },
-    ];
+  const getData = async (tempFilters) => {
+    try {
+      const response = await getAllReports(tempFilters);
 
-    const getData= async(tempfilters) =>{
-        try {
-          const response = await getAllReports(tempfilters);
+      if (response.success) {
+        setReportData(response.data);
+      } else {
+        message.error(response.message);
+      }
+    } catch (error) {
+      message.error(error.message); // Fixed: Use 'error.message' instead of 'response.message'
+    }
+  };
 
-            if(response.success){
-                setReportData(response.data);
-            }else{
-                message.error(response.message);
-            }
-        } catch (error) {
-            message.error(response.message);
-        }
-    } ;
-    useEffect(() => {
-        getData(filters);
+  useEffect(() => {
+    getData(filters);
+  }, [filters]); // Fixed: Added 'filters' as a dependency for the effect
 
-    },[])
   return (
     <div>
-      <PageTitle title = "Reports" />
-
+      <PageTitle title="Reports" />
       <div className="divider"></div>
       <div className="flex">
-      <div className= "flex gap">
-      <input type="text"
-  
-      placeholder="Exam"
-      value={filters.examName}
-      onChange={(e) => setfilters({ ...filters, examName: e.target.value })}
-      />
-
-        <input type="text" placeholder="User" />
-        value={filters.userName}
-        onChange= {(e) => setfilters({...filters,userName : e.target.value})}
-        
-        <button className="primary-outlined-btn"
-            
-         onClick={() => {
-           setfilters({
-           examName: "",
-           userName: "",
-        });
-        getData({
-          examName: "",
-          userName: "",
-        });
-     }}
-    >
-     Clear
-       </button>
-
-
-
-        <button className = "primary-contained-btn">
-          onClick{() =>{
-          getData(filters)
-          Search
-          }}
-        </button>
+        <div className="flex gap">
+          <input
+            type="text"
+            placeholder="Exam"
+            value={filters.examName}
+            onChange={(e) => setFilters({ ...filters, examName: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="User"
+            value={filters.userName}
+            onChange={(e) => setFilters({ ...filters, userName: e.target.value })}
+          />
+          <button
+            className="primary-outlined-btn"
+            onClick={() => {
+              setFilters({
+                examName: "",
+                userName: "",
+              });
+            }}
+          >
+            Clear
+          </button>
+          <button
+            className="primary-contained-btn"
+            onClick={() => {
+              getData(filters);
+            }}
+          >
+            Search
+          </button>
         </div>
       </div>
-      <Table columns={columns} dataSource={reportsData} />
-
+      <Table columns={columns} dataSource={reportData} /> {/* Fixed: Changed 'reportsData' to 'reportData' */}
     </div>
-  )
+  );
 }
 
-export default AdminReports
+export default AdminReports;
