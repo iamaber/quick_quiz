@@ -1,4 +1,3 @@
-// App.js
 import "./stylesheets/theme.css";
 import "./stylesheets/alignments.css";
 import "./stylesheets/textelements.css";
@@ -12,6 +11,8 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Home from "./pages/common/Home";
 import Exams from "./pages/admin/Exams";
 import AddEditExam from "./pages/admin/Exams/AddEditExam";
+import WriteExam from './pages/user/WriteExam'; // Adjust the path as needed
+
 
 function App() {
   return (
@@ -23,21 +24,48 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           {/* User Routes */}
-          <Route path="/" element={<Home />} />
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Home />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/user/write-exam/:id"
+            element={
+              <ProtectedRoute>
+                <WriteExam />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Admin Routes */}
           <Route
             path="/admin/exams"
-            element={<ProtectedRoute element={<Exams />} />} // Wrapped in ProtectedRoute
+            element={
+              <ProtectedRoute>
+                <Exams />
+              </ProtectedRoute>
+            }
           />
           <Route
             path="/admin/exams/add"
-            element={<ProtectedRoute element={<AddEditExam />} />} // Wrapped in ProtectedRoute
+            element={
+              <ProtectedRoute>
+                <AddEditExam />
+              </ProtectedRoute>
+            }
           />
 
           <Route
             path="/admin/exams/edit/:id"
-            element={<ProtectedRoute element={<AddEditExam />} />} // Wrapped in ProtectedRoute
+            element={
+              <ProtectedRoute>
+                <AddEditExam />
+              </ProtectedRoute>
+            }
           />
         </Routes>
       </BrowserRouter>

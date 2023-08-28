@@ -1,13 +1,11 @@
 import React from 'react';
 import { useNavigate } from "react-router-dom";
 
-const Instructions = ({ examData, setView, startTimer }) => {
-  const navigate = useNavigate();
-  
+function Instructions({ examData, setView, startTimer }) { // Added curly braces around examData
   return (
     <div className='flex flex-col items-center gap-5'>
-      <h1 className="text-2xl underline text-center">Instructions</h1>
       <ul className="flex flex-col gap-1">
+        <h1 className="text-2xl underline text-center"> Instructions </h1> {/* Fixed "classname" to "className" */}
         <li>Exam must be completed in {examData.duration} seconds.</li>
         <li>Exam will be submitted automatically after {examData.duration} seconds.</li>
         <li>Once submitted, you cannot change your answers.</li>
@@ -15,19 +13,17 @@ const Instructions = ({ examData, setView, startTimer }) => {
         <li>You can score up to <span className="font-bold">{examData.totalMarks}</span> marks.</li>
         <li>Passing marks for the exam is <span className="font-bold">{examData.passingMarks}</span>.</li>
       </ul>
-      <div className="flex gap-2">
-        <button className="primary-outlined-btn" onClick={() => navigate('/')}>
-          Close
-        </button>
-        <button className="primary-contained-btn" onClick={() => {
+      <button
+        className="primary-outlined-btn"
+        onClick={() => {
           startTimer();
           setView("questions");
-        }}>
-          Start Exam
-        </button>
-      </div>
+        }}
+      >
+        Start Exam
+      </button>
     </div>
   );
-};
+}
 
 export default Instructions;
